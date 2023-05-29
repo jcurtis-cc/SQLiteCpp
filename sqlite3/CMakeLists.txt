@@ -42,6 +42,14 @@ if(SQLITE_ENABLE_RTREE)
     target_compile_definitions(sqlite3 PUBLIC SQLITE_ENABLE_RTREE)
 endif (SQLITE_ENABLE_RTREE)
 
+if(SQLITE_ENABLE_DBSTAT_VTAB)
+    # Enable dbstat virtual table when building sqlite3
+    # See more here: https://www.sqlite.org/dbstat.html
+    target_compile_definitions(sqlite3 PUBLIC SQLITE_ENABLE_DBSTAT_VTAB)
+    message("SQLITE_ENABLE_DBSTAT_VTAB is on")
+endif (SQLITE_ENABLE_DBSTAT_VTAB)
+
+
 if (UNIX AND (CMAKE_COMPILER_IS_GNUCXX OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
     set_target_properties(sqlite3 PROPERTIES COMPILE_FLAGS "-fPIC")
 
