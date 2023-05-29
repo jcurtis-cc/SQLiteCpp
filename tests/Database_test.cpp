@@ -21,6 +21,7 @@
 
 #include <cstdio>
 #include <fstream>
+#include <iostream>
 
 #ifdef SQLITECPP_ENABLE_ASSERT_HANDLER
 namespace SQLite
@@ -638,3 +639,17 @@ TEST(Database, encryptAndDecrypt)
     remove("test.db3");
 }
 #endif // SQLITE_HAS_CODEC
+
+#ifdef SQLITE_ENABLE_JSON1
+TEST(Database, json1)
+{
+    remove("test.db3");
+    {
+        // Create a new database
+        SQLite::Database db("test.db3", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
+        EXPECT_FALSE(db.tableExists("test"));
+        EXPECT_EQ(1, db.exec("SELECT sqlite_compileoption_used('ENABLE_JSON1')"));
+    } // Close DB test.db3
+    remove("test.db3");
+}
+#endif // SQLITE_ENABLE_JSON1

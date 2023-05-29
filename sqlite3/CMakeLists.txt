@@ -34,6 +34,7 @@ if (SQLITE_ENABLE_JSON1)
     # Enable JSON1 extension when building sqlite3
     # See more here: https://www.sqlite.org/json1.html
     target_compile_definitions(sqlite3 PUBLIC SQLITE_ENABLE_JSON1)
+    message(STATUS "JSON1 extension enabled")
 endif (SQLITE_ENABLE_JSON1)
 
 if(SQLITE_ENABLE_RTREE)
